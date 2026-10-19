@@ -55,3 +55,14 @@ colnames(last_touch_rev) <- c("Channel", "Last_Touch_Revenue")
 attribution_comparison <- merge(first_touch_rev, last_touch_rev, by = "Channel", all = TRUE)
 attribution_comparison[is.na(attribution_comparison)] <- 0
 print(attribution_comparison)
+segments_data <- data.frame(
+  Segment = c("VIP_Customers", "Standard_Customers"),
+  Avg_Order_Value = c(300, 100),
+  Purchase_Frequency = c(6, 3),
+  Churn_Rate = c(0.10, 0.25)
+)
+
+segments_data$Annual_Value <- segments_data$Avg_Order_Value * segments_data$Purchase_Frequency
+segments_data$Expected_Lifespan_Years <- 1 / segments_data$Churn_Rate
+segments_data$CLV <- segments_data$Annual_Value * segments_data$Expected_Lifespan_Years
+print(segments_data)
